@@ -13,10 +13,21 @@ const Login = (props:any) => {
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>();
   const [formIsValid, setFormIsValid] = useState<boolean>(false);
 
+  
   useEffect(() => {
-    setFormIsValid(
-        enteredEmail.includes('@') && enteredPassword.trim().length > 6
-      );
+    //debouncing
+    const cleanUpHandler = setTimeout(() => {
+        console.log('Checking form validity');
+        setFormIsValid(
+            enteredEmail.includes('@') && enteredPassword.trim().length > 6
+          );
+    } , 500)
+
+    //clean up function
+    return() => {
+        console.log('CLEAN UP');
+        clearTimeout(cleanUpHandler);
+    };
       //[] dependencies added
   } , [enteredEmail , enteredPassword])
 
