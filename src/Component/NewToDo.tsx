@@ -1,8 +1,9 @@
-import React, { useRef } from "react"
-
+import React, { useContext, useRef } from "react"
 import Classes from '../Component/NewToDo.module.css';
+import ToDoContextProvider, { ToDoContext } from "../Store/todo-context";
 
-const NewToDo:React.FC<{onAddToDo: (text:string) => void}>  = (props) => {
+const NewToDo:React.FC  = () => {
+    const todoContext = useContext(ToDoContext);
     const toDoinputRef = useRef<HTMLInputElement>(null);
 
     const submitHandle = (event:React.FormEvent) => {
@@ -15,7 +16,7 @@ const NewToDo:React.FC<{onAddToDo: (text:string) => void}>  = (props) => {
             //throw the error
             return;
         }
-        props.onAddToDo(entertedValue)
+        todoContext.addTodo(entertedValue)
     }
     return(
         <>

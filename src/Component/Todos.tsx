@@ -5,15 +5,16 @@ import ToDo from "../model/todo";
 import TodoItem from "./TodoItem";
 import Csslassess from '../model/Todo.module.css';
 import ToDoContextProvider, { ToDoContext } from "../Store/todo-context";
+import { useContext } from "react";
 
 
-const Todos: React.FC<{ item: ToDo[] ,onRemoveToDo: (id:string) => void}> = (props) => {
-
+const Todos: React.FC = () => {
+const todoContext =useContext(ToDoContext)
     return (
         <>
             <ul className={Csslassess.todos}>
-                {props.item.map((item) => (
-                    <TodoItem key={item.id} text={item.text} onRemoveToDo={props.onRemoveToDo.bind(null , item.id)} />
+                {todoContext.item.map((item) => (
+                    <TodoItem key={item.id} text={item.text} onRemoveToDo={todoContext.removeToDo.bind(null , item.id)} />
                 ))}
             </ul>
         </>

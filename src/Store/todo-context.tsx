@@ -11,13 +11,17 @@ type TodoContextObj = {
 
 }
 
+interface Props {
+    children: React.ReactNode;
+  }
+
 export const ToDoContext = React.createContext<TodoContextObj>({
     item: [],
     addTodo: () => { },
     removeToDo: (id: string) => { }
 });
 
-const ToDoContextProvider: React.FC = (props) => {
+const ToDoContextProvider: React.FC<Props> = ({children}) => {
 
     const [todos, setTodos] = useState<ToDo[]>([]);
 
@@ -39,9 +43,7 @@ const ToDoContextProvider: React.FC = (props) => {
         removeToDo: onRemoveToDoHandler
 
     }
-    return <ToDoContext.Provider value={contextValue}>
-      {/* {props.children} */}
-    </ToDoContext.Provider>
-}
+    return <ToDoContext.Provider value={contextValue}>{children}</ToDoContext.Provider>;
+};
 
-export default ToDoContextProvider
+export default ToDoContextProvider;
