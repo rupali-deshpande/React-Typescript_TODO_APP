@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Todos from './Component/Todos';
 
-import NewToDo from './Component/NewToDo';
+
 import ToDoContextProvider from './Store/todo-context';
 import MainHeader from './Component/MainHeader';
 import Login from './Component/Login/login';

@@ -9,13 +9,13 @@ import '../App.css'
 
 const TodoItem: React.FC<{ items:ToDo}> = ({items}) => {
     const checkTodo: string = items.completed ? `line-through` : ''
-    console.log("data in cart" , items)
+    
     return(
         <>
         <div className='Card'>
       <div className='Card--text'>
         <h1 className={checkTodo}>{items.id}</h1>
-        <span className={checkTodo}>{items.title.length >5  ? items.title.substring(0, 20)
+        <span className={checkTodo}>{items.title.length >40  ? items.title.substring(0, 40)
                         : items.title} </span>
       </div>
       <div className='Card--button'>

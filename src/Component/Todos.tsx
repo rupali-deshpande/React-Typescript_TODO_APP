@@ -12,10 +12,8 @@ import { Grid } from "@mui/material";
 
 const Todos: React.FC = () => {
 const {item } =useContext(ToDoContext)
-useEffect(() =>{
-    console.log("items" , item)
-} ,[item])
-console.log("data in cart" , item)
+
+
     return (
         <>
         
@@ -24,7 +22,7 @@ console.log("data in cart" , item)
             <ul className={Csslassess.todos}>
                 { 
                 item?.map((item) => (
-                   <TodoItem key={item.userId}   items={item}  />
+                   <TodoItem key={Math.random()}   items={item}  />
                 )
                 ) }
             </ul>

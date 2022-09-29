@@ -7,8 +7,8 @@ import  { newlyaddedTodo, ToDo }  from "../model/todo";
 
 
 type TodoContextObj = {
-    item: ToDo[]|undefined,
-    addTodo: (data:ToDo) => void,
+    item: ToDo[],
+    addTodo: () => void,
     // removeToDo: (id: string) => void
 
 }
@@ -28,35 +28,42 @@ export const ToDoContext = React.createContext<TodoContextObj>({
 
 const ToDoContextProvider: React.FC<Props> = ({children}) => {
 
-    const [todos, setTodos] = useState<ToDo[]>();
+    const [todos, setTodos] = useState<ToDo[]>([]);
     const [addedProducts, setAddedProducts] = useState<newlyaddedTodo[]>([]);
     
     useEffect(() => {
+      if(localStorage.getItem('NewTodos')){
+        const allTodos = JSON.parse(localStorage.getItem('NewTodos')|| '')
+        setTodos(allTodos)
+      }
+      else{
+        axios.get("https://jsonplaceholder.typicode.com/users/1/todos").then((res) => {
+          console.log("product data" ,res)
+          setTodos(res.data);
+           //setTodos(false);
+         })
+         .catch(
+           (error) => {
+             console.log(error);
+          }
+         
+         )
+      }
       
-     fetchData()
+    
 
     } , [])
-    const fetchData = () => {
-      axios.get("https://jsonplaceholder.typicode.com/users/1/todos").then((res) => {
-      console.log("product data" ,res)
-      setTodos(res.data);
-       //setTodos(false);
-     })
-     .catch(
-       (error) => {
-         console.log(error);
+    
+    
+    const addToDoHandler = () => {
+      if(localStorage.getItem('NewTodos')){
+        const allTodos = JSON.parse(localStorage.getItem('NewTodos')|| '')
+        setTodos(allTodos)
       }
+      
+      };
      
-     )
-    }
-    const addToDoHandler = (toDoText: newlyaddedTodo) => {
-      setAddedProducts((prevProd) => {
-        const arr = [...prevProd, toDoText];
-        return arr;
-        
-      });
-      console.log("form", toDoText)
-    };
+  
     // const onRemoveToDoHandler = (id: string) => {
     //     setTodos((prevToDo => {
     //         return prevToDo.filter(todos => todos.id !== id);
