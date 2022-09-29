@@ -9,7 +9,8 @@ import  { newlyaddedTodo, ToDo }  from "../model/todo";
 type TodoContextObj = {
     item: ToDo[],
     addTodo: () => void,
-    // removeToDo: (id: string) => void
+    updateTodo:(data:ToDo)=>void 
+    removeToDo: (data:ToDo) => void
 
 }
 
@@ -20,7 +21,8 @@ interface Props {
 export const ToDoContext = React.createContext<TodoContextObj>({
     item: [],
      addTodo: () => { },
-    // removeToDo: (id: string) => { }
+     updateTodo:() => {},
+    removeToDo: () => {}
 });
 
 
@@ -63,14 +65,32 @@ const ToDoContextProvider: React.FC<Props> = ({children}) => {
       
       };
      
-  
-    // const onRemoveToDoHandler = (id: string) => {
-    //     setTodos((prevToDo => {
-    //         return prevToDo.filter(todos => todos.id !== id);
-    //     }))
-    // }
+      const statusHandler = (item:ToDo) => {
+        const todoitme= todos.map((currentitem) =>{
+          if(item==currentitem){
+            item.completed=true
+          }
+          
+          return currentitem
+        }
+        
+        )
+        setTodos(todoitme)
+        console.log("updated" , todos)
+      }
+    const onRemoveToDoHandler = (id:ToDo) => {
+      
+        setTodos((prevToDo => {
+          return prevToDo.filter(todos => todos!==id);
+
+      }))
+      console.log("updated" , todos)
+      }
+       
+        
     
-    return <ToDoContext.Provider value={{item:todos ,addTodo:addToDoHandler }}>{children}</ToDoContext.Provider>;
+    
+    return <ToDoContext.Provider value={{item:todos ,addTodo:addToDoHandler , updateTodo:statusHandler , removeToDo:onRemoveToDoHandler}}>{children}</ToDoContext.Provider>;
 };
 
 export default ToDoContextProvider;

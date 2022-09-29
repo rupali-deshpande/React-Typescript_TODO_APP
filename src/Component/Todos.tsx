@@ -22,7 +22,7 @@ const {item } =useContext(ToDoContext)
             <ul className={Csslassess.todos}>
                 { 
                 item?.map((item) => (
-                   <TodoItem key={Math.random()}   items={item}  />
+                   <TodoItem key={Math.random()}   item={item}  />
                 )
                 ) }
             </ul>
