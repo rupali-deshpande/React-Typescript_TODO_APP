@@ -15,6 +15,12 @@ const Login = (props:any) => {
 
   
   useEffect(() => {
+    return() => {
+        console.log('CLEAN UP LAST');
+        //clearTimeout(cleanUpHandler);
+    };
+  },[enteredPassword]);
+  useEffect(() => {
     //debouncing
     const cleanUpHandler = setTimeout(() => {
         console.log('Checking form validity');

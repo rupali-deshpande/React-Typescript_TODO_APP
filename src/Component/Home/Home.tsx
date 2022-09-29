@@ -8,12 +8,12 @@ import Card from '../UI/card';
 
 const Home = (props:any) => {
   return (
-    <Card className={classes.home}>
-    <ToDoContextProvider>
-    <NewToDo />
-    <Todos  />
-    </ToDoContextProvider>
-    </Card>
+    
+   
+    <><NewToDo /><Card className={classes.home}>
+      <Todos />
+
+    </Card></>
   );
 };
 

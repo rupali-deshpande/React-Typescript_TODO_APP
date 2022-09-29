@@ -1,22 +1,35 @@
 //props is object
 //FC  type is  
 
-import ToDo from "../model/todo";
 import TodoItem from "./TodoItem";
 import Csslassess from '../model/Todo.module.css';
 import ToDoContextProvider, { ToDoContext } from "../Store/todo-context";
-import { useContext } from "react";
-
+import { useContext, useEffect } from "react";
+import NewToDo from "./NewToDo";
+import Card from "./UI/card";
+import classes from '../Component/Home/Home.module.css'
+import { Grid } from "@mui/material";
 
 const Todos: React.FC = () => {
-const todoContext =useContext(ToDoContext)
+const {item } =useContext(ToDoContext)
+useEffect(() =>{
+    console.log("items" , item)
+} ,[item])
+console.log("data in cart" , item)
     return (
         <>
+        
+   <NewToDo />
+   <Grid container spacing={3}>
             <ul className={Csslassess.todos}>
-                {todoContext.item.map((item) => (
-                    <TodoItem key={item.id} text={item.text} onRemoveToDo={todoContext.removeToDo.bind(null , item.id)} />
-                ))}
+                { 
+                item?.map((item) => (
+                   <TodoItem key={item.userId}   items={item}  />
+                )
+                ) }
             </ul>
+            </Grid>
+          
         </>
     );
 }

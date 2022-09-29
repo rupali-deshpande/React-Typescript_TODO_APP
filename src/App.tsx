@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Todos from './Component/Todos';
-import ToDo from './model/todo';
+
 import NewToDo from './Component/NewToDo';
 import ToDoContextProvider from './Store/todo-context';
 import MainHeader from './Component/MainHeader';
 import Login from './Component/Login/login';
 import Home from './Component/Home/Home';
+import { Route } from 'react-router';
 
 
 function App() {
-  //setTodos is dispatch
+ 
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
@@ -22,6 +23,9 @@ function App() {
     //we updated the state
     setIsLoggedIn(true)
 
+  }
+  return() => {
+    
   }
   } , [])
   const loginHandler = (email:any, password:any) => {
@@ -36,10 +40,19 @@ function App() {
     setIsLoggedIn(false);
   };
   return (
-    <><MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} /><main>
-      {!isLoggedIn && <Login onLogin={loginHandler} />}
-      {isLoggedIn && <Home onLogout={logoutHandler} />}
-    </main></>
+    // <><MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} /><main>
+    //   {!isLoggedIn && <Login onLogin={loginHandler} />}
+    //   {isLoggedIn && <Home onLogout={logoutHandler} />}
+    // </main></> 
+    <>
+     <main className='App'>
+      <h1>My Todos</h1>
+     <ToDoContextProvider>
+  <Todos /> 
+    </ToDoContextProvider>
+    </main>
+    </>
+   
   );
 }
 
